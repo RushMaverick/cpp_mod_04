@@ -14,7 +14,7 @@ int main()
 		else
 			animalArray[i] = new Dog();
 	}
-
+	
 	for (int i = 0; i < 6; i++) {
 		delete animalArray[i];
 	}
