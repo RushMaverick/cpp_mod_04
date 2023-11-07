@@ -2,11 +2,23 @@
 #define CHARACTERHPP
 
 #include "ICharacter.hpp"
-#include "AMateria.hpp"
+class AMateria;
 
 class Character : public ICharacter {
 	private:
 		AMateria *_inventory[4];
+	public:
+		Character();
+		Character(std::string name);
+		~Character();
+		Character(const Character &other);
+		Character &operator=(const Character &other);
+		AMateria &getMateria(int idx, AMateria *_inventory);
+		/* Overrides */
+		virtual std::string const & getName() const override;
+		virtual void equip(AMateria* m) override;
+		virtual void unequip(int idx) override;
+		virtual void use(int idx, ICharacter& target) override;
 };
 
 #endif
