@@ -9,8 +9,8 @@ class Ice : public AMateria {
 		~Ice();
 		Ice(const Ice &copy);
 		Ice &operator=(const Ice &copy);
-		Ice &clone();
-		// use(ICharacter& char);
+		AMateria *clone() const override;
+		void use(ICharacter& character);
 };
 
 #endif

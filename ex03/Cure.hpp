@@ -9,8 +9,8 @@ class Cure : public AMateria {
 		~Cure();
 		Cure(const Cure &copy);
 		Cure &operator=(const Cure &copy);
-		Cure &clone();
-		// use(ICharacter& char);
+		AMateria *clone () const override;
+		void use(ICharacter& character);
 };
 
 #endif

@@ -18,6 +18,11 @@ Cure::~Cure(){
 
 }
 
-Cure &Cure::clone(){
-	//To new or not to new?
+AMateria *Cure::clone() const {
+	AMateria *newCure = new Cure("Cure");
+	return newCure;
+}
+
+void Cure::use(ICharacter& character) {
+	std::cout << " heals " << character.getName() << "'s wounds." << std::endl;
 }

@@ -15,9 +15,14 @@ Ice &Ice::operator=(const Ice &copy){
 }
 
 Ice::~Ice(){
-
+	delete this;
 }
 
-Ice &Ice::clone(){
-	//To new or not to new?
+AMateria *Ice::clone() const {
+	AMateria *newIce = new Ice("Ice");
+	return newIce;
+}
+
+void Ice::use(ICharacter& character) {
+	std::cout << " shoots an ice bolt at " << character.getName() << std::endl;
 }

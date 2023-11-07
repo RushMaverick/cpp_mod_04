@@ -10,7 +10,7 @@ FLAGS    := -Wall -Wextra -Werror -std=c++98 -g
 #                                 PROGRAM'S SRCS                               #
 ################################################################################
 
-SRCS        =      main.cpp\
+SRCS        =      main.cpp AMateria.cpp Cure.cpp Ice.cpp Character.cpp\
                           
 OBJS        := ${SRCS:.cpp=.o}
 
