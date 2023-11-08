@@ -2,11 +2,14 @@
 #define CHARACTERHPP
 
 #include "ICharacter.hpp"
+#include "Floor.hpp"
 class AMateria;
 
 class Character : public ICharacter {
 	private:
 		AMateria *_inventory[4];
+		std::string _name;
+		Floor *floor;
 	public:
 		Character();
 		Character(std::string name);
@@ -15,18 +18,10 @@ class Character : public ICharacter {
 		Character &operator=(const Character &other);
 		AMateria &getMateria(int idx, AMateria *_inventory);
 		/* Overrides */
-		virtual std::string const & getName() const override;
-		virtual void equip(AMateria* m) override;
-		virtual void unequip(int idx) override;
-		virtual void use(int idx, ICharacter& target) override;
+		virtual std::string const & getName() const;
+		virtual void equip(AMateria* m);
+		virtual void unequip(int idx);
+		virtual void use(int idx, ICharacter& target);
 };
 
 #endif
-
-/*
-	- Inherits from ICharacter.
-	- Has an inventory for 4 materias. (array of &AMateria[4])
-	- Has a use(int, ICharacter&) will use the materia at the given position on the target given.
-	  Passes it's target parameter to the AMateria::use function.
-	- Has a constructor that takes it's name as a parameter. And ANY copy of a Character must be deep.
-*/

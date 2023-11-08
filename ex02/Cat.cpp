@@ -24,6 +24,7 @@ Cat::~Cat() {
 Cat::Cat(const Cat &other) {
 	std::cout << "Cat Copy Constructor" << std::endl;
 	this->type = other.getType();
+	delete this->ownBrain;
 	this->ownBrain = new Brain(*other.ownBrain);
 }
 
@@ -32,6 +33,7 @@ Cat &Cat::operator=(const Cat &other){
 	if (this == &other)
 		return *this;
 	this->type = other.getType();
+	delete this->ownBrain;
 	this->ownBrain = new Brain(*other.ownBrain);
 	return *this;
 }

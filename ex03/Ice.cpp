@@ -1,21 +1,23 @@
 #include "Ice.hpp"
 
-Ice::Ice(std::string const type){
-	
+Ice::Ice() : AMateria("Ice"){
+	this->type_ = "Ice";
 }
 
-Ice::Ice(const Ice &copy){
+Ice::Ice(std::string const type) : AMateria("Ice"){
+	this->type_ = type;
+}
+
+Ice::Ice(const Ice &copy) : AMateria("Ice"){
 	this->type_ = copy.getType();
 }
 
 Ice &Ice::operator=(const Ice &copy){
-	if (this == &copy)
-		return *this;
 	this->type_ = copy.getType();
+	return *this;
 }
 
 Ice::~Ice(){
-	delete this;
 }
 
 AMateria *Ice::clone() const {

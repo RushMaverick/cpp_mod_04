@@ -2,40 +2,49 @@
 #include "AMateria.hpp"
 
 Floor::Floor(){
-	for (int i = 0; i < 50; i++){
+	floorLimit = 50;
+	for (int i = 0; i < floorLimit; i++){
 		this->floor[i] = NULL;
 	}
 }
 
 Floor::~Floor(){
-	for (int i = 0; i < 50; i++){
-		delete floor[i];
+	for (int i = 0; i < floorLimit; i++){
+		if (floor[i] != NULL)
+			delete floor[i];
 		this->floor[i] = NULL;
 	}
 }
 
-Floor::Floor(const Floor &copy) {
-	for (int i = 0; i < 50; i++){
-		this->floor[i] = copy.floor[i];
-	}
-}
 
 Floor &Floor::operator=(const Floor &copy) {
-	for (int i = 0; i < 50; i++){
-		this->floor[i] = copy.floor[i];
+	this->floorLimit = copy.getFloorLimit();
+	for (int i = 0; i < floorLimit; i++){
+		if (this->floor[i] != NULL)
+			delete this->floor[i];
+	}
+	for (int i = 0; i < floorLimit; i++){
+		this->floor[i] = copy.floor[i]->clone();
 	}
 	return *this;
 }
 
-void Floor::throwOnFloor(AMateria &spell) {
-	for (int i = 0; i < 50; i++){
+Floor::Floor(const Floor &copy) {
+	*this = copy;
+}
+
+void Floor::throwOnFloor(AMateria *spell) {
+	for (int i = 0; i < floorLimit; i++){
 		if (floor[i] == NULL){
-			floor[i] = &spell;
-			std::cout << spell.getType() << " materia dropped on the \
-				floor, never to be seen again..." << std::endl;
+			floor[i] = spell;
+			std::cout << spell->getType() << " materia unequipped and dropped on the floor." << std::endl;
 			return;
 		}
 	}
-	std::cout << "The floor is so full of trashed items,\
-		you can't seem to drop anything!" << std::endl;
+	std::cout << "The floor is so full of trashed items, you can't seem to drop anything!" << std::endl;
+	delete spell;
+}
+
+int Floor::getFloorLimit() const {
+	return floorLimit;
 }

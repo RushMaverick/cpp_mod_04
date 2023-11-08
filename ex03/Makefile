@@ -4,13 +4,13 @@
 
 NAME        := LastIllusion
 CC         := c++
-FLAGS    := -Wall -Wextra -Werror -std=c++98 -g
+FLAGS    := -Wall -Wextra -Werror -std=c++98
  
 ################################################################################
 #                                 PROGRAM'S SRCS                               #
 ################################################################################
 
-SRCS        =      main.cpp AMateria.cpp Cure.cpp Ice.cpp Character.cpp\
+SRCS        =      main.cpp AMateria.cpp Cure.cpp Ice.cpp Character.cpp Floor.cpp MateriaSource.cpp\
                           
 OBJS        := ${SRCS:.cpp=.o}
 

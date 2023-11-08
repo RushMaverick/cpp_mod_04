@@ -24,6 +24,7 @@ Dog::~Dog() {
 Dog::Dog(const Dog &other) {
 	std::cout << "Dog Copy Constructor" << std::endl;
 	this->type = other.getType();
+	delete this->ownBrain;
 	this->ownBrain = new Brain(*other.ownBrain);
 }
 
@@ -32,6 +33,7 @@ Dog &Dog::operator=(const Dog &other){
 	if (this == &other)
 		return *this;
 	this->type = other.getType();
+	delete this->ownBrain;
 	this->ownBrain = new Brain(*other.ownBrain);
 	return *this;
 }

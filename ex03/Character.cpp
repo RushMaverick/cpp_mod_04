@@ -2,34 +2,51 @@
 #include "AMateria.hpp"
 
 Character::Character() {
-	for (int i; i < 3; i++){
+	for (int i = 0; i < 4; i++){
 		this->_inventory[i] = NULL;
 	}
-	this->name_ = "Claus";
+	floor = new Floor();
+	this->_name = "Claus";
 }
 
 Character::Character(std::string name) {
-	for (int i; i < 3; i++){
+	for (int i = 0; i < 4; i++){
 		this->_inventory[i] = NULL;
 	}
-	this->name_ = name;
+	floor = new Floor();
+	this->_name = name;
 }
 
 Character::~Character() {
- //Might have to delete the array.
+	for (int i = 0; i < 4; i++){
+		if (this->_inventory[i])
+			delete this->_inventory[i];
+		this->_inventory[i] = NULL;
+	}
+	delete floor;
 }
 
 Character::Character(const Character &other) {
-	for (int i; i < 3; i++){
-		this->_inventory[i] = NULL;
+	for (int i = 0; i < 4; i++){
+		this->_inventory[i] = other._inventory[i];
 	}
-	this->name_ = other.getName();
+	floor = new Floor();
+	this->_name = other.getName();
 }
 
 Character &Character::operator=(const Character &other){
 	if (this == &other)
 		return *this;
-	this->name_ = other.getName();
+	for (int i = 0; i < 4; i++){
+		if (this->_inventory[i] != NULL)
+			delete this->_inventory[i];
+	}
+	for (int i = 0; i < 4; i++){
+		if (other._inventory[i] != NULL)
+			this->_inventory[i] = other._inventory[i]->clone();
+	}
+	this->floor = other.floor;
+	this->_name = other.getName();
 	return *this;
 }
 
@@ -38,35 +55,55 @@ AMateria &Character::getMateria(int idx, AMateria *_inventory){
 }
 
 std::string const &Character::getName() const {
-	return this->name_;
+	return this->_name;
 }
 
 void Character::equip(AMateria *m) {
+	if (!m){
+		std::cout << "There is no materia to equip." << std::endl;
+		return;
+	}
 	for (int i = 0; i < 4; i++) {
+		if (this->_inventory[i] == m)
+			return;
 		if (this->_inventory[i] == NULL){
 			this->_inventory[i] = m;
+			std::cout << this->_name << " equips " << m->getType() << " in slot " << i << "." << std::endl;
 			return;
 		}
 	}
 	std::cout << "Equipment is full, unequip something to give space." << std::endl;
+	delete m;
 }
 
 void Character::unequip(int index) {
-	if (this->_inventory[index] == NULL){
-		std::cout << "Nothing equipped there." << std::endl;
-		return;
+	if (index >= 0 && index < 4)
+	{
+		if (this->_inventory[index] == NULL){
+			std::cout << "Nothing equipped there." << std::endl;
+			return;
+		}
+		else {
+			floor->throwOnFloor(this->_inventory[index]);
+			this->_inventory[index] = NULL;
+			return;
+		}
 	}
-	//TO BE CONTINUED >>>
+	std::cout << "That index is in another dimension." << std::endl;
 }
 
 void Character::use(int index, ICharacter &target) {
-	std::cout << this->getName();
+	if (this->_inventory[index] == NULL)
+		return;
 	if (this->_inventory[index]->getType() == "Ice"){
+		std::cout << this->getName();
 		this->_inventory[index]->use(target);
+		return;
 	}
 	else if (this->_inventory[index]->getType() == "Cure"){
+		std::cout << this->getName();
 		this->_inventory[index]->use(target);
+		return;
 	}
-	else
-		std::cout << "No materia equipped, kupo!" << std::endl;
+	std::cout << "No materia equipped, kupo!" << std::endl;
 }
