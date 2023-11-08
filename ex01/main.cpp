@@ -32,5 +32,6 @@ int main()
 	for (int i = 0; i < 6; i++) {
 		delete animalArray[i];
 	}
+	delete otherCat;
 	return 0;
 }
