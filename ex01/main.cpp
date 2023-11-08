@@ -15,12 +15,19 @@ int main()
 			animalArray[i] = new Dog();
 	}
 	
-	Cat cat;
+	((Cat*)animalArray[0])->pickBrain()->setIdea(0, "Fish are inherently bad.");
+	Cat *otherCat = new Cat("Cat");
 
-	cat.pickBrain()->setIdea(0, "What is the meaning of existence.");
-	Cat copy(cat);
-	std::cout << cat.pickBrain()->getIdea(0) << std::endl;
-	std::cout << copy.pickBrain()->getIdea(0) << std::endl;
+	*otherCat = *((Cat*)animalArray[0]);
+	std::cout << std::endl;
+	std::cout << otherCat->pickBrain()->getIdea(0) << std::endl;
+	std::cout << ((Cat*)animalArray[0])->pickBrain()->getIdea(0) << std::endl;
+
+	((Cat*)animalArray[0])->pickBrain()->setIdea(0, "Actually, I like fish now.");
+
+	std::cout << otherCat->pickBrain()->getIdea(0) << std::endl;
+	std::cout << ((Cat*)animalArray[0])->pickBrain()->getIdea(0) << std::endl;
+	std::cout << std::endl;
 
 	for (int i = 0; i < 6; i++) {
 		delete animalArray[i];
