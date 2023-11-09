@@ -73,7 +73,6 @@ void Character::equip(AMateria *m) {
 		}
 	}
 	std::cout << "Equipment is full, unequip something to give space." << std::endl;
-	delete m;
 }
 
 void Character::unequip(int index) {

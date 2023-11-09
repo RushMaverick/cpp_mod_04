@@ -11,7 +11,7 @@ Animal::Animal() {
 
 Animal::Animal(std::string _type) {
 	std::cout << "Animal Type Constructor" << std::endl;
-	this->type = "Animal Type";
+	this->type = _type;
 }
 
 Animal::~Animal() {
@@ -20,14 +20,14 @@ Animal::~Animal() {
 
 Animal::Animal(const Animal &other) {
 	std::cout << "Animal Copy Operator" << std::endl;
-	this->type = "Animal Type";
+	this->type = other.getType();
 }
 
 Animal &Animal::operator=(const Animal &other){
 	std::cout << "Animal Copy Operator Overload" << std::endl;
 	if (this == &other)
 		return *this;
-	this->type = "Animal Type";
+	this->type = other.getType();
 	return *this;
 }
 
